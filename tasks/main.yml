@@ -1,0 +1,31 @@
+---
+# tasks file for ansible-role-install-pkg-ubuntu
+- include_vars: "main.yml"
+
+- name: "Gather facts"
+  setup:    # equivalent to "gather_facts: yes"
+
+- name: "Update apt package cache"
+  apt:
+    cache_valid_time: 1200
+
+- name: "Make sure {{ install_pkg_dependency|length }} needed deb packages are installed"
+  apt:
+    name: "{{ install_pkg_dependency }}"
+    state: present
+
+- name: "Add {{ install_pkg_key|length }} keys to authenticate deb trusted packages"
+  apt_key:
+    url: "{{ item }}"
+    state: present
+  with_items: "{{ install_pkg_key }}"
+
+- name: "Add {{ install_pkg_repo|length }} apt repositories"
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items: "{{ install_pkg_repo }}"
+    # PPAs somtimes return an HTTP 503 error
+    # Play stubborn here to give it more chances to get executed
+    retries: 6
+    delay: 10
