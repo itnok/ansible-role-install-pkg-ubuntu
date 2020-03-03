@@ -48,7 +48,7 @@ Here an example of how to use this role in your playbooks:
     - { role: itnok.install_pkg_ubuntu }
 
   vars:
-    docker_dependency:    # Optional (Pick whatever name you like for this variable)
+    docker_dependency:    # optional (Pick whatever name you like for this variable)
       - curl
       - software-properties-common
     install_pkg_dependency: "{{ install_pkg_dependency + docker_dependency }}"

@@ -25,7 +25,7 @@
     repo: "{{ item }}"
     state: present
   with_items: "{{ install_pkg_repo }}"
-    # PPAs somtimes return an HTTP 503 error
-    # Play stubborn here to give it more chances to get executed
-    retries: 6
-    delay: 10
+  # PPAs somtimes return an HTTP 503 error
+  # Play stubborn here to give it more chances to get executed
+  retries: 6
+  delay: 10
