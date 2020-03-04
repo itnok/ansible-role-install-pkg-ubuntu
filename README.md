@@ -1,7 +1,7 @@
 install-pkg-ubuntu
 ==================
 
-[![Build Status](https://travis-ci.org/itnok/ansible-role-install-pkg-ubuntu.svg?branch=master)](https://travis-ci.org/itnok/ansible-role-install-pkg-ubuntu) [![GitHub tag](https://img.shields.io/github/v/tag/itnok/ansible-role-install-pkg-ubuntu?sort=semver)](https://github.com/itnok/ansible-role-install-pkg-ubuntu/tags/)
+[![Build Status](https://travis-ci.org/itnok/ansible-role-install-pkg-ubuntu.svg?branch=master)](https://travis-ci.org/itnok/ansible-role-install-pkg-ubuntu) [![GitHub tag](https://img.shields.io/github/v/tag/itnok/ansible-role-install-pkg-ubuntu?sort=semver)](https://github.com/itnok/ansible-role-install-pkg-ubuntu/tags/) [![Ansible Role](https://img.shields.io/ansible/role/47006)](https://galaxy.ansible.com/itnok/install_pkg_ubuntu)
 
 Makes it easier to add DEB repositories and install packages on an Ubuntu host.
 
