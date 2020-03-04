@@ -8,32 +8,39 @@ Makes it easier to add DEB repositories and install packages on an Ubuntu host.
 Steps performed are:
 
   - Update apt package cache
-  - Get list of available updates
-  - Perform upgrade of all upgradable packages to the latest version
-  - Check if reboot is required
-  - Reboot of the machine if needed
+  - Make sure all needed dependency packages are installed
+  - Add all keys used to authenticate deb trusted packages
+  - Add all apt repositories
+  - Refresh apt package cache for new repos
+  - Add all deb packages
 
 
-:exclamation: Requirements
---------------------------
-
-None.
-
-
-:abcd: Role Variables
----------------------
+## :exclamation: Requirements
+-----------------------------
 
 None.
 
 
-:link: Dependencies
--------------------
+## :abcd: Role Variables
+------------------------
+
+| Variable                   | Description                                                               | Default Value                                         |
+|----------------------------|---------------------------------------------------------------------------|-------------------------------------------------------|
+| `__install_pkg_dependency` | Default dependencies needed by the role                                   | `[apt-transport-https, ca-certificates, gnupg-agent]` |
+| `install_pkg_key`          | List of keys to add ([Check Example](#notebook-example-playbook))                  | `[]`                                                  |
+| `install_pkg_repo`         | List of deb repositories ([Check Example](#notebook-example-playbook) for formats) | `[]`                                                  |
+| `install_pkg_dependency`   | List of dependencies                                                      | `"{{ __install_pkg_dependency }}"`                    |
+| `install_pkg_app`          | List of applications to install                                           | `[]`                                                  |
+
+
+## :link: Dependencies
+----------------------
 
 None.
 
 
-:notebook: Example Playbook
----------------------------
+## :notebook: Example Playbook
+------------------------------
 
 Here an example of how to use this role in your playbooks:
 
@@ -58,9 +65,16 @@ Here an example of how to use this role in your playbooks:
       - "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
       - "ppa:embrosyn/cinnamon"
       - "ppa:noobslab/macbuntu"
+    install_pkg_app:
+      - "cinnamon"
+      - "docker-ce"
+      - "macbuntu-os-icons-v1804"
+      - "macbuntu-os-ithemes-v1804"
+      - "macbuntu-os-plank-theme-v1804"
+      - "plank"
 ```
 
-:guardsman: License
--------------------
+## :guardsman: License
+----------------------
 
 MIT _([read more](LICENSE.md))_
