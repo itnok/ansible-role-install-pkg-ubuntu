@@ -3,3 +3,4 @@
 install_pkg_key: []
 install_pkg_repo: []
 install_pkg_dependency: "{{ __install_pkg_dependency }}"
+install_pkg_app: []
