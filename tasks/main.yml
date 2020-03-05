@@ -9,32 +9,32 @@
   apt:
     cache_valid_time: 1200
 
-- name: "Make sure {{ install_pkg_dependency|length }} needed deb packages are installed"
+- name: "Make sure {{ manage_pkg_dependency|length }} needed deb packages are installed"
   apt:
-    name: "{{ install_pkg_dependency }}"
+    name: "{{ manage_pkg_dependency }}"
     state: present
 
-- name: "Add {{ install_pkg_key|length }} keys to authenticate deb trusted packages"
+- name: "{{ 'Add' if manage_pkg_key_do == 'present' else 'Remove' }} {{ manage_pkg_key|length }} keys to authenticate deb trusted packages"
   apt_key:
     url: "{{ item }}"
-    state: present
-  with_items: "{{ install_pkg_key }}"
+    state: "{{ manage_pkg_key_do }}"
+  with_items: "{{ manage_pkg_key }}"
 
-- name: "Add {{ install_pkg_repo|length }} apt repositories"
+- name: "{{ 'Add' if manage_pkg_repo_do == 'present' else 'Remove' }} {{ manage_pkg_repo|length }} apt repositories"
   apt_repository:
     repo: "{{ item }}"
-    state: present
-  with_items: "{{ install_pkg_repo }}"
+    state: "{{ manage_pkg_repo_do }}"
+  with_items: "{{ manage_pkg_repo }}"
   # PPAs somtimes return an HTTP 503 error
   # Play stubborn here to give it more chances to get executed
-  retries: 6
-  delay: 10
+  retries: 5
+  delay: 15
 
 - name: "Refresh apt package cache for new repos"
   apt:
     cache_valid_time: 1200
 
-- name: "Add {{ install_pkg_app|length }} deb packages"
+- name: "{{ 'Add' if manage_pkg_app_do == 'present' else 'Remove' }} {{ manage_pkg_app|length }} deb packages"
   apt:
-    name: "{{ install_pkg_app }}"
-    state: present
+    name: "{{ manage_pkg_app }}"
+    state: "{{ manage_pkg_app_do }}"

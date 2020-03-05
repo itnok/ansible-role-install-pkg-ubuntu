@@ -1,7 +1,7 @@
 galaxy_info:
-  role_name: install_pkg_ubuntu
+  role_name: manage_pkg_ubuntu
   author: Simone Conti - @itnok
-  description: Makes it easier to add DEB repositories and install packages on an Ubuntu host.
+  description: Makes it easier to add/remove DEB repositories and install/purge packages on an Ubuntu host.
   company: itnok.com
 
   # If the issue tracker for your role is not on github, uncomment the

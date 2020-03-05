@@ -1,7 +1,7 @@
-install-pkg-ubuntu
+manage-pkg-ubuntu
 ==================
 
-[![Build Status](https://travis-ci.org/itnok/ansible-role-install-pkg-ubuntu.svg?branch=master)](https://travis-ci.org/itnok/ansible-role-install-pkg-ubuntu) [![GitHub tag](https://img.shields.io/github/v/tag/itnok/ansible-role-install-pkg-ubuntu?sort=semver)](https://github.com/itnok/ansible-role-install-pkg-ubuntu/tags/) [![Ansible Role](https://img.shields.io/ansible/role/47006)](https://galaxy.ansible.com/itnok/install_pkg_ubuntu)
+[![Build Status](https://travis-ci.org/itnok/ansible-role-install-pkg-ubuntu.svg?branch=master)](https://travis-ci.org/itnok/ansible-role-install-pkg-ubuntu) [![GitHub tag](https://img.shields.io/github/v/tag/itnok/ansible-role-install-pkg-ubuntu?sort=semver)](https://github.com/itnok/ansible-role-install-pkg-ubuntu/tags/) [![Ansible Role](https://img.shields.io/ansible/role/47006)](https://galaxy.ansible.com/itnok/manage_pkg_ubuntu)
 
 Makes it easier to add DEB repositories and install packages on an Ubuntu host.
 
@@ -26,11 +26,11 @@ None.
 
 | Variable                   | Description                                                               | Default Value                                         |
 |----------------------------|---------------------------------------------------------------------------|-------------------------------------------------------|
-| `__install_pkg_dependency` | Default dependencies needed by the role                                   | `[apt-transport-https, ca-certificates, gnupg-agent]` |
-| `install_pkg_key`          | List of keys to add ([Check Example](#notebook-example-playbook))                  | `[]`                                                  |
-| `install_pkg_repo`         | List of deb repositories ([Check Example](#notebook-example-playbook) for formats) | `[]`                                                  |
-| `install_pkg_dependency`   | List of dependencies                                                      | `"{{ __install_pkg_dependency }}"`                    |
-| `install_pkg_app`          | List of applications to install                                           | `[]`                                                  |
+| `__manage_pkg_dependency` | Default dependencies needed by the role                                   | `[apt-transport-https, ca-certificates, gnupg-agent]` |
+| `manage_pkg_key`          | List of keys to add ([Check Example](#notebook-example-playbook))                  | `[]`                                                  |
+| `manage_pkg_repo`         | List of deb repositories ([Check Example](#notebook-example-playbook) for formats) | `[]`                                                  |
+| `manage_pkg_dependency`   | List of dependencies                                                      | `"{{ __manage_pkg_dependency }}"`                    |
+| `manage_pkg_app`          | List of applications to install                                           | `[]`                                                  |
 
 
 ## :link: Dependencies
@@ -52,20 +52,20 @@ Here an example of how to use this role in your playbooks:
   become: yes
 
   roles:
-    - { role: itnok.install_pkg_ubuntu }
+    - { role: itnok.manage_pkg_ubuntu }
 
   vars:
     docker_dependency:    # optional (Pick whatever name you like for this variable)
       - curl
       - software-properties-common
-    install_pkg_dependency: "{{ install_pkg_dependency + docker_dependency }}"
-    install_pkg_key:
+    manage_pkg_dependency: "{{ manage_pkg_dependency + docker_dependency }}"
+    manage_pkg_key:
       - "https://download.docker.com/linux/ubuntu/gpg"
-    install_pkg_repo:
+    manage_pkg_repo:
       - "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
       - "ppa:embrosyn/cinnamon"
       - "ppa:noobslab/macbuntu"
-    install_pkg_app:
+    manage_pkg_app:
       - "cinnamon"
       - "docker-ce"
       - "macbuntu-os-icons-v1804"

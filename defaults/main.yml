@@ -1,6 +1,9 @@
 ---
 # defaults file for ansible-role-install-pkg-ubuntu
-install_pkg_key: []
-install_pkg_repo: []
-install_pkg_dependency: "{{ __install_pkg_dependency }}"
-install_pkg_app: []
+manage_pkg_key_do: "present"
+manage_pkg_key: []
+manage_pkg_repo_do: "present"
+manage_pkg_repo: []
+manage_pkg_dependency: "{{ __manage_pkg_dependency }}"
+manage_pkg_app_do: "present"
+manage_pkg_app: []
