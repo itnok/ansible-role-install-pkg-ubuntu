@@ -38,3 +38,4 @@
   apt:
     name: "{{ manage_pkg_app }}"
     state: "{{ manage_pkg_app_do }}"
+    install_recommends: "{{ manage_pkg_app_install_recommends }}"

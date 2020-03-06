@@ -24,16 +24,17 @@ None.
 ## :abcd: Role Variables
 ------------------------
 
-| Variable                   | Description                                                                        | Default Value                                         |
-|----------------------------|------------------------------------------------------------------------------------|-------------------------------------------------------|
-| `__manage_pkg_dependency`  | Default dependencies needed by the role                                            | `[apt-transport-https, ca-certificates, gnupg-agent]` |
-| `manage_pkg_key_do`        | Pick the operation to perform on listed keys (`present` or `absent`)               | `present`                                             |
-| `manage_pkg_key`           | List of keys to add ([Check Example](#notebook-example-playbook))                  | `[]`                                                  |
-| `manage_pkg_repo_do`       | Pick the operation to perform on listed repos (`present` or `absent`)              | `present`                                             |
-| `manage_pkg_repo`          | List of deb repositories ([Check Example](#notebook-example-playbook) for formats) | `[]`                                                  |
-| `manage_pkg_dependency`    | List of dependencies                                                               | `"{{ __manage_pkg_dependency }}"`                     |
-| `manage_pkg_app_do`        | Pick the operation to perform on listed deb packages (`present` or `absent`)       | `present`                                             |
-| `manage_pkg_app`           | List of applications to install                                                    | `[]`                                                  |
+| Variable                            | Description                                                                        | Default Value                                         |
+|-------------------------------------|------------------------------------------------------------------------------------|-------------------------------------------------------|
+| `__manage_pkg_dependency`           | Default dependencies needed by the role                                            | `[apt-transport-https, ca-certificates, gnupg-agent]` |
+| `manage_pkg_key_do`                 | Pick the operation to perform on listed keys (`present` or `absent`)               | `present`                                             |
+| `manage_pkg_key`                    | List of keys to add ([Check Example](#notebook-example-playbook))                  | `[]`                                                  |
+| `manage_pkg_repo_do`                | Pick the operation to perform on listed repos (`present` or `absent`)              | `present`                                             |
+| `manage_pkg_repo`                   | List of deb repositories ([Check Example](#notebook-example-playbook) for formats) | `[]`                                                  |
+| `manage_pkg_dependency`             | List of dependencies                                                               | `"{{ __manage_pkg_dependency }}"`                     |
+| `manage_pkg_app_do`                 | Pick the operation to perform on listed deb packages (`present` or `absent`)       | `present`                                             |
+| `manage_pkg_app_install_recommends` | Wheter or not to also add all recommended deb pkgs related to the ones to install  | `no`                                                  |
+| `manage_pkg_app`                    | List of applications to install                                                    | `[]`                                                  |
 
 
 ## :link: Dependencies
