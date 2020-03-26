@@ -19,16 +19,16 @@
     keyserver: "{{ item.url | regex_search('^hkp://.*') | regex_replace('^hkp://([a-z0-9A-Z\\.\\-]+)(:[0-9]+)?$', '\\1') }}"
     id: "{{ item.key }}"
     state: "{{ manage_pkg_key_do }}"
+  when: item.url is match('^hkp://.*')
   with_items: "{{ manage_pkg_key }}"
-  when: item.url | regex_search('^hkp://.*') != ""
 
 - name: "{{ 'Add' if manage_pkg_key_do == 'present' else 'Remove' }} {{ manage_pkg_key|length }} keys from url to authenticate deb trusted packages"
   apt_key:
     url: "{{ item.url | regex_search('^http(s)?://.*') }}"
     id: "{{ item.key }}"
     state: "{{ manage_pkg_key_do }}"
+  when: item.url is match('^http(s)?://.*')
   with_items: "{{ manage_pkg_key }}"
-  when: item.url | regex_search('^hkp://.*') == ""
 
 - name: "{{ 'Add' if manage_pkg_repo_do == 'present' else 'Remove' }} {{ manage_pkg_repo|length }} apt repositories"
   apt_repository:
