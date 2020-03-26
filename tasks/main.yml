@@ -16,7 +16,8 @@
 
 - name: "{{ 'Add' if manage_pkg_key_do == 'present' else 'Remove' }} {{ manage_pkg_key|length }} keys to authenticate deb trusted packages"
   apt_key:
-    url: "{{ item }}"
+    url: "{{ item.url }}"
+    id: "{{ item.key }}"
     state: "{{ manage_pkg_key_do }}"
   with_items: "{{ manage_pkg_key }}"
 

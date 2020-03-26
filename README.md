@@ -28,7 +28,7 @@ None.
 |-------------------------------------|------------------------------------------------------------------------------------|-------------------------------------------------------|
 | `__manage_pkg_dependency`           | Default dependencies needed by the role                                            | `[apt-transport-https, ca-certificates, gnupg-agent]` |
 | `manage_pkg_key_do`                 | Pick the operation to perform on listed keys (`present` or `absent`)               | `present`                                             |
-| `manage_pkg_key`                    | List of keys to add ([Check Example](#notebook-example-playbook))                  | `[]`                                                  |
+| `manage_pkg_key`                    | List of keys to add ([Check Example](#notebook-example-playbook))                  | `[{key: <HEX-KEY>, url: <key-server-url>}]`           |
 | `manage_pkg_repo_do`                | Pick the operation to perform on listed repos (`present` or `absent`)              | `present`                                             |
 | `manage_pkg_repo`                   | List of deb repositories ([Check Example](#notebook-example-playbook) for formats) | `[]`                                                  |
 | `manage_pkg_dependency`             | List of dependencies                                                               | `"{{ __manage_pkg_dependency }}"`                     |
@@ -64,7 +64,7 @@ Here an example of how to use this role in your playbooks:
       - software-properties-common
     manage_pkg_dependency: "{{ manage_pkg_dependency + docker_dependency }}"
     manage_pkg_key:
-      - "https://download.docker.com/linux/ubuntu/gpg"
+      - { key: "", url: "https://download.docker.com/linux/ubuntu/gpg" }
     manage_pkg_repo:
       - "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
       - "ppa:embrosyn/cinnamon"
