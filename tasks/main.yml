@@ -17,7 +17,7 @@
 - name: "{{ 'Add' if manage_pkg_key_do == 'present' else 'Remove' }} {{ manage_pkg_key|length }} keys to authenticate deb trusted packages"
   apt_key:
     keyserver: "{{ item.url | regex_search('^hkp://.*') | regex_replace('^hkp://([a-z0-9A-Z\\.\\-]+)(:[0-9]+)?$', '\\1') }}"
-    url: "{{ item.url | regex_search('^http(s)?://.*')"
+    url: "{{ item.url | regex_search('^http(s)?://.*') }}"
     id: "{{ item.key }}"
     state: "{{ manage_pkg_key_do }}"
   with_items: "{{ manage_pkg_key }}"
