@@ -20,7 +20,7 @@
     id: "{{ item.key }}"
     state: "{{ manage_pkg_key_do }}"
   with_items: "{{ manage_pkg_key }}"
-  when: "{{ item.url | regex_search('^hkp://.*') }}" != ""
+  when: item.url | regex_search('^hkp://.*') != ""
 
 - name: "{{ 'Add' if manage_pkg_key_do == 'present' else 'Remove' }} {{ manage_pkg_key|length }} keys from url to authenticate deb trusted packages"
   apt_key:
@@ -28,7 +28,7 @@
     id: "{{ item.key }}"
     state: "{{ manage_pkg_key_do }}"
   with_items: "{{ manage_pkg_key }}"
-  when: "{{ item.url | regex_search('^hkp://.*') }}" == ""
+  when: item.url | regex_search('^hkp://.*') == ""
 
 - name: "{{ 'Add' if manage_pkg_repo_do == 'present' else 'Remove' }} {{ manage_pkg_repo|length }} apt repositories"
   apt_repository:
