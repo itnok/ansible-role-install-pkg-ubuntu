@@ -5,6 +5,9 @@
 - name: "Gather facts"
   setup:    # equivalent to "gather_facts: yes"
 
+- name: "Wait for any possibly running unattended upgrade to finish"
+  raw: systemd-run --property="After=apt-daily.service apt-daily-upgrade.service" --wait /bin/true
+
 - name: "Update apt package cache"
   apt:
     cache_valid_time: 1200
@@ -39,6 +42,9 @@
   # Play stubborn here to give it more chances to get executed
   retries: 5
   delay: 15
+
+- name: "Wait for any possibly running unattended upgrade to finish"
+  raw: systemd-run --property="After=apt-daily.service apt-daily-upgrade.service" --wait /bin/true
 
 - name: "Refresh apt package cache for new repos"
   apt:
