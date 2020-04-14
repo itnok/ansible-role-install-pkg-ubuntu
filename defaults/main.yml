@@ -1,5 +1,6 @@
 ---
 # defaults file for ansible-role-install-pkg-ubuntu
+ansible_become: yes
 manage_pkg_key_do: "present"
 manage_pkg_key: []
 manage_pkg_repo_do: "present"
