@@ -24,6 +24,10 @@
     state: "{{ manage_pkg_key_do }}"
   when: item.url is match('^hkp://.*')
   with_items: "{{ manage_pkg_key }}"
+  # Key servers somtimes return an HTTP error
+  # Play stubborn here to give it more chances to get executed
+  retries: 5
+  delay: 15
 
 - name: "{{ 'Add' if manage_pkg_key_do == 'present' else 'Remove' }} {{ manage_pkg_key|length }} keys from url to authenticate deb trusted packages"
   apt_key:
@@ -32,6 +36,10 @@
     state: "{{ manage_pkg_key_do }}"
   when: item.url is match('^http(s)?://.*')
   with_items: "{{ manage_pkg_key }}"
+  # Key servers somtimes return an HTTP error
+  # Play stubborn here to give it more chances to get executed
+  retries: 5
+  delay: 15
 
 - name: "{{ 'Add' if manage_pkg_repo_do == 'present' else 'Remove' }} {{ manage_pkg_repo|length }} apt repositories"
   apt_repository:
