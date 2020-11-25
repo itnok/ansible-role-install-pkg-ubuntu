@@ -1,6 +1,7 @@
 ---
 # tasks file for ansible-role-install-pkg-ubuntu
-- include_vars: "main.yml"
+- name: "Include role variables"
+  include_vars: "main.yml"
 
 - name: "Gather facts"
   setup:    # equivalent to "gather_facts: yes"
