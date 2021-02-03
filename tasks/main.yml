@@ -6,8 +6,15 @@
 - name: "Gather facts"
   setup:    # equivalent to "gather_facts: yes"
 
+# In a context such a Docker container systemd might not be necessarily part of the game...
+- name: "Check whether systemd-run is available"
+  stat:
+    path: "/usr/bin/systemd-run"
+  register: manage_pkg_systemd_run
+
 - name: "Wait for any possibly running unattended upgrade to finish"
   raw: systemd-run --property="After=apt-daily.service apt-daily-upgrade.service" --wait /bin/true
+  when: manage_pkg_systemd_run.stat.exists
 
 - name: "Update apt package cache"
   apt:
@@ -54,6 +61,7 @@
 
 - name: "Wait for any possibly running unattended upgrade to finish"
   raw: systemd-run --property="After=apt-daily.service apt-daily-upgrade.service" --wait /bin/true
+  when: manage_pkg_systemd_run.stat.exists
 
 - name: "Refresh apt package cache for new repos"
   apt:
