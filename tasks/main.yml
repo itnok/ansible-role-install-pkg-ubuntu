@@ -19,6 +19,10 @@
 - name: "Update apt package cache"
   apt:
     cache_valid_time: 1200
+  # Ubuntu servers somtimes return errors depending on the randomly picked mirror
+  # Play stubborn here to give it more chances to get executed
+  retries: 5
+  delay: 15
 
 - name: "Make sure {{ manage_pkg_dependency|length }} needed deb packages are installed"
   apt:
