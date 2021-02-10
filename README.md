@@ -7,6 +7,7 @@ Makes it easier to add DEB repositories and install packages on an Ubuntu host.
 
 Steps performed are:
 
+  - Get updated facts about the current Ubuntu running state
   - Update apt package cache
   - Make sure all needed dependency packages are installed
   - Add all keys used to authenticate deb trusted packages
@@ -40,7 +41,17 @@ None.
 ## :link: Dependencies
 ----------------------
 
-None.
+- [itnok.is_ubuntu](https://galaxy.ansible.com/itnok/is_ubuntu) _(:octocat: [ansible-role-is-ubuntu](https://github.com/itnok/ansible-role-is-ubuntu))_
+
+To install dependencies use:
+```
+    $ ansible-galaxy install <dependecy.name>
+```
+
+Installation of the required Ansible Roles can also be simply addressed with:
+```
+    $ ansible-galaxy install -r requirements.yml
+```
 
 
 ## :notebook: Example Playbook

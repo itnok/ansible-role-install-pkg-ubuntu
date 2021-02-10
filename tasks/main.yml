@@ -6,6 +6,10 @@
 - name: "Gather facts"
   setup:    # equivalent to "gather_facts: yes"
 
+- name: "Check is_ubuntu facts"
+  include_role:
+    name: itnok.is_ubuntu
+
 # In a context such a Docker container systemd might not be necessarily part of the game...
 - name: "Check whether systemd-run is available"
   stat:
@@ -14,7 +18,9 @@
 
 - name: "Wait for any possibly running unattended upgrade to finish"
   raw: systemd-run --property="After=apt-daily.service apt-daily-upgrade.service" --wait /bin/true
-  when: manage_pkg_systemd_run.stat.exists
+  when:
+    - manage_pkg_systemd_run.stat.exists
+    - not is_ubuntu_inside_container | bool
 
 - name: "Update apt package cache"
   apt:
@@ -65,7 +71,9 @@
 
 - name: "Wait for any possibly running unattended upgrade to finish"
   raw: systemd-run --property="After=apt-daily.service apt-daily-upgrade.service" --wait /bin/true
-  when: manage_pkg_systemd_run.stat.exists
+  when:
+    - manage_pkg_systemd_run.stat.exists
+    - not is_ubuntu_inside_container | bool
 
 - name: "Refresh apt package cache for new repos"
   apt:
