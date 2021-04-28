@@ -27,8 +27,10 @@
     cache_valid_time: 1200
   # Ubuntu servers somtimes return errors depending on the randomly picked mirror
   # Play stubborn here to give it more chances to get executed
-  retries: 5
+  register: apt_operation
+  retries: 7
   delay: 15
+  until: apt_operation is succeeded
 
 - name: "Make sure {{ manage_pkg_dependency|length }} needed deb packages are installed"
   apt:
@@ -44,8 +46,10 @@
   with_items: "{{ manage_pkg_key }}"
   # Key servers somtimes return an HTTP error
   # Play stubborn here to give it more chances to get executed
-  retries: 5
+  register: apt_key_operation
+  retries: 7
   delay: 15
+  until: apt_key_operation is succeeded
 
 - name: "{{ 'Add' if manage_pkg_key_do == 'present' else 'Remove' }} {{ manage_pkg_key|length }} keys from url to authenticate deb trusted packages"
   apt_key:
@@ -56,8 +60,10 @@
   with_items: "{{ manage_pkg_key }}"
   # Key servers somtimes return an HTTP error
   # Play stubborn here to give it more chances to get executed
-  retries: 5
+  register: apt_key_operation
+  retries: 7
   delay: 15
+  until: apt_key_operation is succeeded
 
 - name: "{{ 'Add' if manage_pkg_repo_do == 'present' else 'Remove' }} {{ manage_pkg_repo|length }} apt repositories"
   apt_repository:
@@ -66,8 +72,10 @@
   with_items: "{{ manage_pkg_repo }}"
   # PPAs somtimes return an HTTP 503 error
   # Play stubborn here to give it more chances to get executed
-  retries: 5
+  register: apt_repository_operation
+  retries: 7
   delay: 15
+  until: apt_repository_operation is succeeded
 
 - name: "Wait for any possibly running unattended upgrade to finish"
   raw: systemd-run --property="After=apt-daily.service apt-daily-upgrade.service" --wait /bin/true

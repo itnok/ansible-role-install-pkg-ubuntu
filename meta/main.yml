@@ -1,5 +1,6 @@
 galaxy_info:
   role_name: manage_pkg_ubuntu
+  namespace: itnok
   author: Simone Conti - @itnok
   description: Makes it easier to add/remove DEB repositories and install/purge packages on an Ubuntu host.
   company: itnok.com
