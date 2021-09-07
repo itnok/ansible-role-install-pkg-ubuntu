@@ -4,7 +4,7 @@
   include_vars: "main.yml"
 
 - name: "Gather facts"
-  setup:    # equivalent to "gather_facts: yes"
+  setup: # equivalent to "gather_facts: yes"
 
 - name: "Check is_ubuntu facts"
   include_role:
@@ -25,7 +25,7 @@
 - name: "Update apt package cache"
   apt:
     cache_valid_time: 1200
-  # Ubuntu servers somtimes return errors depending on the randomly picked mirror
+  # Ubuntu servers sometimes return errors depending on the randomly picked mirror
   # Play stubborn here to give it more chances to get executed
   register: apt_operation
   retries: 7
@@ -44,7 +44,7 @@
     state: "{{ manage_pkg_key_do }}"
   when: item.url is match('^hkp://.*')
   with_items: "{{ manage_pkg_key }}"
-  # Key servers somtimes return an HTTP error
+  # Key servers sometimes return an HTTP error
   # Play stubborn here to give it more chances to get executed
   register: apt_key_operation
   retries: 7
@@ -58,7 +58,7 @@
     state: "{{ manage_pkg_key_do }}"
   when: item.url is match('^http(s)?://.*')
   with_items: "{{ manage_pkg_key }}"
-  # Key servers somtimes return an HTTP error
+  # Key servers sometimes return an HTTP error
   # Play stubborn here to give it more chances to get executed
   register: apt_key_operation
   retries: 7
@@ -70,7 +70,7 @@
     repo: "{{ item }}"
     state: "{{ manage_pkg_repo_do }}"
   with_items: "{{ manage_pkg_repo }}"
-  # PPAs somtimes return an HTTP 503 error
+  # PPAs sometimes return an HTTP 503 error
   # Play stubborn here to give it more chances to get executed
   register: apt_repository_operation
   retries: 7
